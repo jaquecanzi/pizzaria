@@ -1,5 +1,6 @@
 let usuarios = require('../databases/usuarios.json')
 const fs = require('fs')
+//const bcrypt = 
 
 
 
@@ -9,25 +10,35 @@ function listar(){
 }
 
 function salvar(arrayDeUsuarios){
-    //Essa função deve salvar um array de usuários no arquivo databases/usuarios.json
-    let usuarios2 = usuarios
-    usuarios2.push(arrayDeUsuarios)
-    fs.writeFileSync('../databases/usuarios.json', JSON.stringify(arrayDeUsuarios, null, 4))
+
+    fs.writeFileSync('./databases/usuarios.json', JSON.stringify(arrayDeUsuarios, null, 4))
 }
+
 let usuario = {
     id: 128,
-    nome: 'Teste',
+    nome: 'jaqueline copello',
     email: 'ttt',
     senha: '$2b$10$SVtOuXSKV9phITIZH6V12.8VN7iOxi2xHcGq0eQiVU82cKmFx.CRa',
     enderecos: [ 'tttt' ],
     formasDePagamento: []
 }
 
-salvar(usuario)
+listar()
 
 function cadastrar(objeto){
-// Seu código aqui
+let usuario = {
+    id: usuarios.length,
+    nome: objeto.nome,
+    email: objeto.email,
+    enderecos: objeto.enderecos,
+    formasDePagamento: objeto.formasDePagamento
 }
+usuarios.push(usuario)
+salvar(usuarios)
+
+}
+
+cadastrar(usuario)
 
 function detalhar(idUsuario){
 // Seu código aqui
@@ -68,6 +79,7 @@ function alterarFormaDePagamento(novaFormaDePagamento, posicaoDaFormaDePagamento
 const UsuariosServices = {
     cadastrar,
     listar,
+    salvar,
     detalhar,
     remover,
     alterar,
@@ -79,4 +91,4 @@ const UsuariosServices = {
     alterarFormaDePagamento
 }
 
-module.exports = UsuariosServices;
+module.exports = UsuariosServices
